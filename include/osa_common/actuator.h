@@ -48,7 +48,8 @@ namespace osa_common
  *
  *  This is a base class for more specific actuators like electric motors.
  */
-template <typename S, typename J> class Actuator : public Hardware // S is std::string or QString for Qt packages like osa_gui
+template <typename S, typename J>
+class Actuator : public Hardware // S is std::string or QString for Qt packages like osa_gui
 {
 public:
 	typedef S value_type;
