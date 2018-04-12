@@ -64,6 +64,9 @@ public:
 	void grabRobotFromParameterServer();
 	void grabDOFFromParameterServer();
 
+	//setter
+	void setRobotNamespace(std::string robot_namespace);
+
 	//getter
 	std::string getRobotNamespace() const { return robot_namespace_; };
 	std::string getRobotName() const { return robot_name_; };

@@ -260,6 +260,18 @@ RobotDescription::~RobotDescription()
 	controller_list_.clear();
 }
 
+void RobotDescription::setRobotNamespace(std::string robot_namespace)
+{
+	if(!robot_namespace.empty())
+	{
+		robot_namespace_ = robot_namespace;
+	}
+	else
+	{
+		throw runtime_error("Empty string!");
+	}
+}
+
 void RobotDescription::grabRobotNamespaceFromParameterServer()
 {
 	// Grab the namespace parameter
