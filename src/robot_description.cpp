@@ -77,22 +77,22 @@ controller_list_()
 		//load robot parameters
 		if(!nh_->param(robot_namespace_ + "/robot/name", robot_name_, std::string(robot_namespace_ + "my_robot")))
 		{
-			ROS_WARN_STREAM("No " << robot_namespace_ << "/robot/name found in YAML config file");
+			ROS_WARN_STREAM("No " << robot_namespace_ << "/robot/name found in Parameter Server");
 		}
 
 		if(!nh_->param(robot_namespace_ + "/robot/dof", robot_dof_, int(0)))
 		{
-			ROS_WARN_STREAM("No " << robot_namespace_ << "/robot/dof found in YAML config file");
+			ROS_WARN_STREAM("No " << robot_namespace_ << "/robot/dof found in Parameter Server");
 		}
 
 		if(!nh_->param(robot_namespace_ + "/robot/can_device", robot_can_device_, std::string("can0")))
 		{
-			ROS_WARN_STREAM("No " << robot_namespace_ << "/robot/can_device found in YAML config file");
+			ROS_WARN_STREAM("No " << robot_namespace_ << "/robot/can_device found in Parameter Server");
 		}
 
 		if(!nh_->param(robot_namespace_ + "/robot/heartbeat", robot_heartbeat_, int(0)))
 		{
-			ROS_WARN_STREAM("No " << robot_namespace_ << "/robot/heartbeat found in YAML config file");
+			ROS_WARN_STREAM("No " << robot_namespace_ << "/robot/heartbeat found in Parameter Server");
 		}
 
 		ROS_INFO("Robot name=%s, dof=%d, can=%s", robot_name_.c_str(), robot_dof_, robot_can_device_.c_str());
@@ -118,7 +118,7 @@ controller_list_()
 
 			if(nh_->searchParam(dof_idx_path.str(), absolute_str))
 			{
-				//ROS_INFO("%s found in YAML config file", dof_idx_path.str().c_str());
+				//ROS_INFO("%s found in Parameter Server", dof_idx_path.str().c_str());
 				//ROS_INFO("absolute_str = %s", absolute_str.c_str());
 
 				//create variables to store the controller parameters:
@@ -220,19 +220,19 @@ controller_list_()
 			else
 			{
 				dof_exist = false;
-				//ROS_INFO("No more controllers found in YAML config file");
+				//ROS_INFO("No more controllers found in Parameter Server");
 			}
 
 			//dof_exist = false;
 		}
 
 		dof_idx--;
-		if(robot_dof_ == dof_idx) ROS_INFO("Same number of DOF(%d) and controllers(%d) defined in the YAML config file!", robot_dof_, dof_idx);
+		if(robot_dof_ == dof_idx) ROS_INFO("Same number of DOF(%d) and controllers(%d) defined in the Parameter Server!", robot_dof_, dof_idx);
 		else
 		{
-			ROS_WARN("Not the same number of DOF(%d) and controllers(%d) defined in the YAML config file!", robot_dof_, dof_idx);
+			ROS_WARN("Not the same number of DOF(%d) and controllers(%d) defined in the Parameter Server!", robot_dof_, dof_idx);
 			//throw 1;
-			throw runtime_error("Not the same number of DOF and controllers defined in the YAML config file!");
+			throw runtime_error("Not the same number of DOF and controllers defined in the Parameter Server!");
 		}
 
 		ROS_INFO("Parameters loaded successfully!\n");
@@ -241,7 +241,7 @@ controller_list_()
 	{
 		ROS_ERROR(e.what());
 		ROS_ERROR("Parameters didn't load correctly!");
-		ROS_ERROR("Please modify your YAML config file and try again.");
+		ROS_ERROR("Please modify your Parameter Server and try again.");
 
 		throw e;
 	}
@@ -260,13 +260,13 @@ RobotDescription::~RobotDescription()
 	controller_list_.clear();
 }
 
-void RobotDescription::grabRobotNamespaceParameterFromServer()
+void RobotDescription::grabRobotNamespaceFromParameterServer()
 {
 	// Grab the namespace parameter
 	try
 	{
 		nh_->param("robot_namespace", robot_namespace_, std::string("/my_robot_ns"));
-		ROS_INFO("Grab the Robot Namespace parameter: [%s]", robot_namespace_);
+		ROS_INFO_STREAM("Grab the Robot Namespace parameter: [" << robot_namespace_ << "]");
 	}
 	catch(ros::InvalidNameException const &e)
 	{
@@ -278,7 +278,7 @@ void RobotDescription::grabRobotNamespaceParameterFromServer()
 	}
 }
 
-void RobotDescription::grabRobotParametersFromServer()
+void RobotDescription::grabRobotFromParameterServer()
 {
 	if(!robot_namespace_.empty())
 	{
@@ -288,22 +288,22 @@ void RobotDescription::grabRobotParametersFromServer()
 			//load robot parameters
 			if(!nh_->param(robot_namespace_ + "/robot/name", robot_name_, std::string(robot_namespace_ + "my_robot")))
 			{
-				ROS_WARN_STREAM("No " << robot_namespace_ << "/robot/name found in YAML config file");
+				ROS_WARN_STREAM("No " << robot_namespace_ << "/robot/name found in Parameter Server");
 			}
 
 			if(!nh_->param(robot_namespace_ + "/robot/dof", robot_dof_, int(0)))
 			{
-				ROS_WARN_STREAM("No " << robot_namespace_ << "/robot/dof found in YAML config file");
+				ROS_WARN_STREAM("No " << robot_namespace_ << "/robot/dof found in Parameter Server");
 			}
 
 			if(!nh_->param(robot_namespace_ + "/robot/can_device", robot_can_device_, std::string("can0")))
 			{
-				ROS_WARN_STREAM("No " << robot_namespace_ << "/robot/can_device found in YAML config file");
+				ROS_WARN_STREAM("No " << robot_namespace_ << "/robot/can_device found in Parameter Server");
 			}
 
 			if(!nh_->param(robot_namespace_ + "/robot/heartbeat", robot_heartbeat_, int(0)))
 			{
-				ROS_WARN_STREAM("No " << robot_namespace_ << "/robot/heartbeat found in YAML config file");
+				ROS_WARN_STREAM("No " << robot_namespace_ << "/robot/heartbeat found in Parameter Server");
 			}
 
 			ROS_INFO("Robot name=%s, dof=%d, can=%s", robot_name_.c_str(), robot_dof_, robot_can_device_.c_str());
@@ -312,7 +312,7 @@ void RobotDescription::grabRobotParametersFromServer()
 		{
 			ROS_ERROR(e.what());
 			ROS_ERROR("Parameters didn't load correctly!");
-			ROS_ERROR("Please modify your YAML config file and try again.");
+			ROS_ERROR("Please modify your Parameter Server and try again.");
 
 			throw e;
 		}
@@ -323,7 +323,7 @@ void RobotDescription::grabRobotParametersFromServer()
 	}
 }
 
-void RobotDescription::grabDOFParametersFromServer()
+void RobotDescription::grabDOFFromParameterServer()
 {
 	if(!robot_namespace_.empty())
 	{
@@ -347,7 +347,7 @@ void RobotDescription::grabDOFParametersFromServer()
 
 				if(nh_->searchParam(dof_idx_path.str(), absolute_str))
 				{
-					//ROS_INFO("%s found in YAML config file", dof_idx_path.str().c_str());
+					//ROS_INFO("%s found in Parameter Server", dof_idx_path.str().c_str());
 					//ROS_INFO("absolute_str = %s", absolute_str.c_str());
 
 					//create variables to store the controller parameters:
@@ -449,19 +449,19 @@ void RobotDescription::grabDOFParametersFromServer()
 				else
 				{
 					dof_exist = false;
-					//ROS_INFO("No more controllers found in YAML config file");
+					//ROS_INFO("No more controllers found in Parameter Server");
 				}
 
 				//dof_exist = false;
 			}
 
 			dof_idx--;
-			if(robot_dof_ == dof_idx) ROS_INFO("Same number of DOF(%d) and controllers(%d) defined in the YAML config file!", robot_dof_, dof_idx);
+			if(robot_dof_ == dof_idx) ROS_INFO("Same number of DOF(%d) and controllers(%d) defined in the Parameter Server!", robot_dof_, dof_idx);
 			else
 			{
-				ROS_WARN("Not the same number of DOF(%d) and controllers(%d) defined in the YAML config file!", robot_dof_, dof_idx);
+				ROS_WARN("Not the same number of DOF(%d) and controllers(%d) defined in the Parameter Server!", robot_dof_, dof_idx);
 				//throw 1;
-				throw runtime_error("Not the same number of DOF and controllers defined in the YAML config file!");
+				throw runtime_error("Not the same number of DOF and controllers defined in the Parameter Server!");
 			}
 
 			ROS_INFO("Parameters loaded successfully!\n");
@@ -470,7 +470,7 @@ void RobotDescription::grabDOFParametersFromServer()
 		{
 			ROS_ERROR(e.what());
 			ROS_ERROR("Parameters didn't load correctly!");
-			ROS_ERROR("Please modify your YAML config file and try again.");
+			ROS_ERROR("Please check your YAML config file, load it in the Parameter Server and try again.");
 
 			throw e;
 		}

@@ -60,9 +60,9 @@ public:
 	 */
 	~RobotDescription();
 
-	void grabRobotNamespaceParameterFromServer();
-	void grabRobotParametersFromServer();
-	void grabDOFParametersFromServer();
+	void grabRobotNamespaceFromParameterServer(); //TODO name it ...FromParameterServer instead
+	void grabRobotFromParameterServer();
+	void grabDOFFromParameterServer();
 
 	//getter
 	std::string getRobotNamespace() const { return robot_namespace_; };
