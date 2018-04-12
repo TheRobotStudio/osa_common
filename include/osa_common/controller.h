@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, The Robot Studio
+ * Copyright (c) 2018, The Robot Studio
  *  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,23 +26,19 @@
 
 /**
  * @file controller.h
- * @author Cyril Jourdan
- * @date Dec 9, 2016
- * @version 0.0.1
+ * @author Cyril Jourdan <cyril.jourdan@therobotstudio.com>
+ * @date Modified on Apr 11, 2018
+ * @date Created on Apr 11, 2018
+ * @version 0.1.1
  * @brief Header file for class Controller
- *
- * Contact: cyril.jourdan@therobotstudio.com
- * Created on : Dec 9, 2016
  */
 
-#ifndef OSA_GUI_COMMON_CONTROLLER_H
-#define OSA_GUI_COMMON_CONTROLLER_H
+#ifndef OSA_COMMON_CONTROLLER_H
+#define OSA_COMMON_CONTROLLER_H
 
-#include <QJsonObject>
-#include "hardware.h"
-#include "communication_layer.h"
-#include "actuator.h"
-#include "battery.h"
+#include <ros/ros.h>
+#include <string>
+#include "enums.h"
 
 namespace osa_common
 {
@@ -50,16 +46,16 @@ namespace osa_common
 /**
  * @brief Class representing an actuator controller.
  */
-class Controller : public Hardware
+class Controller
 {
 public:
 	/**
 	 * @brief Constructor.
 	 */
-	Controller();
-	//Controller();
-	//copy constructor
-	//Controller(Controller const& controller);
+	Controller(std::string name, std::string degree_of_freedom_type,
+				int node_id, std::string controller_type,
+				std::string motor_type, bool inverted,
+				std::string mode, int value);
 
 	/**
 	 * @brief Destructor.
@@ -67,45 +63,35 @@ public:
 	virtual ~Controller();
 
 	//setters
-	int	setStatus(int status);
-	int	setNodeID(unsigned int nodeID);
-	int setPosition(int position);
-	int setCurrent(int current);
-	int setVelocity(int velocity);
-	int setPActuator(Actuator* pActuator);
-	//int setPCommunicationLayer(CommunicationLayer* pCommunicationLayer);
-	//int setPBattery(Battery* pBattery);
-
+//	int	setName(std::string name);
+	int	setNodeID(uint8_t node_id);
+/*	int setControllerType(ControllerType controller_type);
+	int setMotorType(MotorType motor_type);
+	int setInverted(bool inverted);
+	int setMode(ActivatedModeOfOperation mode);
+	int setValue(int value);
+*/
 	//getters
-	int	 getStatus() const { return status_; };
-	unsigned int getNodeId() const { return node_id_; };
-	int getPosition() const { return position_; };
-	int getCurrent() const { return current_; };
-	int getVelocity() const { return velocity_; };
-	Actuator* getActuator() const { return ptr_actuator_; };
-	//CommunicationLayer* getPCommunicationLayer() const { return m_pCommunicationLayer; };
-	//Battery* getPBattery() const { return m_pBattery; };
-
-	//other methods
-	virtual void display();
-
-	/** @brief Read method for JSON serialization. */
-	virtual void read(const QJsonObject &json);
-
-	/** @brief Write method for JSON serialization. */
-	virtual void write(QJsonObject &json) const;
+	std::string	getName() const { return name_; };
+	uint8_t getNodeID() const { return node_id_; };
+	ControllerType getControllerType() const { return controller_type_; };
+	MotorType getMotorType() const { return motor_type_; };
+	bool getInverted() const { return inverted_; };
+	ActivatedModeOfOperation getMode() const { return mode_; };
+	int getValue() const { return value_; };
 
 protected:
-	int status_;
-	unsigned int node_id_;
-	int position_;
-	int current_;
-	int velocity_;
-	Actuator* ptr_actuator_;
-	//CommunicationLayer* ptr_communication_layer;
-	//Battery* ptr_battery_;
+	std::string name_;
+	DegreeOfFreedomType degree_of_freedom_type_;
+	uint8_t node_id_;
+	ControllerType controller_type_;
+	MotorType motor_type_;
+	bool inverted_; /**< 0 for non inverted, 1 for inverted, this will invert the sign of commands. */
+	ActivatedModeOfOperation mode_;
+	int value_;
+
 };
 
 } // namespace osa_common
 
-#endif // OSA_GUI_COMMON_CONTROLLER_H
+#endif // OSA_COMMON_CONTROLLER_H

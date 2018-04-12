@@ -76,7 +76,7 @@ public:
 	/**
 	 * @brief Destructor.
 	 */
-	~Motor();
+	virtual ~Motor();
 
 	//setters
 	int setBrushType(QString brush_type);

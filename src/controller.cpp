@@ -26,57 +26,74 @@
 
 /**
  * @file controller.cpp
- * @author Cyril Jourdan
- * @date Dec 9, 2016
- * @version 0.1.0
+ * @author Cyril Jourdan <cyril.jourdan@therobotstudio.com>
+ * @date Modified on Apr 11, 2018
+ * @date Created on Apr 11, 2018
+ * @version 0.1.1
  * @brief Implementation file for class Controller
- *
- * Contact: cyril.jourdan@therobotstudio.com
- * Created on : Dec 9, 2016
  */
 
-#include <iostream>
 #include "controller.h"
 
 using namespace std;
-using namespace osa_gui;
-using namespace common;
-using namespace Qt;
+using namespace osa_common;
 
-Controller::Controller() :
-	Hardware(),
-	status_(0),
-	node_id_(0),
-	position_(0),
-	current_(0),
-	velocity_(0),
-	ptr_actuator_()
-	//m_pCommunicationLayer(nullptr),
-	//m_pBattery(nullptr)
+Controller::Controller(std::string name, std::string degree_of_freedom_type,
+		int node_id, std::string controller_type,
+		std::string motor_type, bool inverted,
+		std::string mode, int value) :
+name_(name),
+degree_of_freedom_type_(TENDON),
+node_id_(0),
+controller_type_(NOT_USED),
+motor_type_(NONE),
+inverted_(inverted),
+mode_(PROFILE_VELOCITY_MODE),
+value_(value)
 {
+	//Init the parameters
+
+		//degree_of_freedom_type_
+		if(!degree_of_freedom_type.compare("TENDON")) degree_of_freedom_type_ = TENDON;
+		else if(!degree_of_freedom_type.compare("WHEEL")) degree_of_freedom_type_ = WHEEL;
+		else if(!degree_of_freedom_type.compare("CLASSICAL")) degree_of_freedom_type_ = CLASSICAL;
+
+		//node_id_
+		if((node_id >=0) && (node_id<=255)) node_id_ = node_id; //check that the value is a uint8_t
+
+		//controller_type_
+		if(!controller_type.compare("NOT_USED")) controller_type_ = ControllerType(NOT_USED);
+		else if(!controller_type.compare("EPOS2")) controller_type_ = ControllerType(EPOS2);
+		else if(!controller_type.compare("EPOS4")) controller_type_ = ControllerType(EPOS4);
+
+		//motor_type_
+		if(!motor_type.compare("NONE")) motor_type_ = MotorType(NONE);
+		else if(!motor_type.compare("DCX10")) motor_type_ = MotorType(DCX10);
+		else if(!motor_type.compare("DCX14")) motor_type_ = MotorType(DCX14);
+		else if(!motor_type.compare("DCX16")) motor_type_ = MotorType(DCX16);
+		else if(!motor_type.compare("DCX22")) motor_type_ = MotorType(DCX22);
+		else if(!motor_type.compare("DCX32")) motor_type_ = MotorType(DCX32);
+		else if(!motor_type.compare("RE13")) motor_type_ = MotorType(RE13);
+		else if(!motor_type.compare("RE30")) motor_type_ = MotorType(RE30);
+		else if(!motor_type.compare("ECI40")) motor_type_ = MotorType(ECI40);
+		else if(!motor_type.compare("ECI52")) motor_type_ = MotorType(ECI52);
+		else if(!motor_type.compare("EC90")) motor_type_ = MotorType(EC90);
+
+		//mode_
+		if(!mode.compare("INTERPOLATED_POSITION_MODE")) mode_ = ActivatedModeOfOperation(INTERPOLATED_POSITION_MODE);
+		else if(!mode.compare("PROFILE_VELOCITY_MODE")) mode_ = ActivatedModeOfOperation(PROFILE_VELOCITY_MODE);
+		else if(!mode.compare("PROFILE_POSITION_MODE")) mode_ = ActivatedModeOfOperation(PROFILE_POSITION_MODE);
+		else if(!mode.compare("POSITION_MODE")) mode_ = ActivatedModeOfOperation(POSITION_MODE);
+		else if(!mode.compare("VELOCITY_MODE")) mode_ = ActivatedModeOfOperation(VELOCITY_MODE);
+		else if(!mode.compare("CURRENT_MODE")) mode_ = ActivatedModeOfOperation(CURRENT_MODE);
+		else if(!mode.compare("CYCLIC_SYNCHRONOUS_TORQUE_MODE")) mode_ = ActivatedModeOfOperation(CYCLIC_SYNCHRONOUS_TORQUE_MODE);
 }
 
 Controller::~Controller()
 {
-	delete ptr_actuator_;
-	//delete m_pCommunicationLayer;
-	//delete m_pBattery;
 }
 
-int	Controller::setStatus(int status)
-{
-	//check the value
-	if(status > 0)
-	{
-		status_ = status;
-
-		return 0;
-	}
-	else
-		return -1;
-}
-
-int	Controller::setNodeID(unsigned int node_id)
+int	Controller::setNodeID(uint8_t node_id)
 {
 	//check the value
 	if(node_id > 0)
@@ -87,126 +104,4 @@ int	Controller::setNodeID(unsigned int node_id)
 	}
 	else
 		return -1;
-}
-
-int Controller::setPosition(int position)
-{
-	//check the value
-	if(position > 0)
-	{
-		position_ = position;
-
-		return 0;
-	}
-	else
-		return -1;
-}
-
-int Controller::setCurrent(int current)
-{
-	//check the value
-	if(current > 0)
-	{
-		current_ = current;
-
-		return 0;
-	}
-	else
-		return -1;
-}
-
-int Controller::setVelocity(int velocity)
-{
-	//check the value
-	if(velocity > 0)
-	{
-		velocity_ = velocity;
-
-		return 0;
-	}
-	else
-		return -1;
-}
-
-int Controller::setPActuator(Actuator* ptr_actuator)
-{
-	//check the value
-	if(ptr_actuator != 0)
-	{
-		ptr_actuator_ = ptr_actuator;
-
-		return 0;
-	}
-	else
-		return -1;
-}
-/*
-int Controller::setPCommunicationLayer(CommunicationLayer* pCommunicationLayer)
-{
-	//check the value
-	if(pCommunicationLayer != 0)
-	{
-		m_pCommunicationLayer = pCommunicationLayer;
-
-		return 0;
-	}
-	else
-		return -1;
-}
-
-int Controller::setPBattery(Battery* pBattery)
-{
-	//check the value
-	if(pBattery != 0)
-	{
-		m_pBattery = pBattery;
-
-		return 0;
-	}
-	else
-		return -1;
-}
-*/
-
-void Controller::display()
-{
-	cout << "Controller:" << endl;
-	Hardware::display(); //call the display method from mother class
-	cout << "Status: " << status_ << endl;
-	cout << "NodeID: " << node_id_ << endl;
-	cout << "Position: " << position_ << endl;
-	cout << "Current: " << current_ << endl;
-	cout << "Velocity: " << velocity_ << endl;
-}
-
-void Controller::read(const QJsonObject &json)
-{
-	//call mother class method
-	Hardware::read(json);
-
-	//read attributes
-	status_ = (int)json["status"].toDouble();
-	node_id_ = (unsigned int)json["node_id"].toDouble();
-	position_ = (int)json["position"].toDouble();
-	current_ = (int)json["current"].toDouble();
-	velocity_ = (int)json["velocity"].toDouble();
-	ptr_actuator_->read(json); //TODO find a way to avoid infinite serialization loop
-	//m_pCommunicationLayer->read(json);
-	//m_pBattery->read(json);
-}
-
-void Controller::write(QJsonObject &json) const
-{
-	//call mother class method
-	Hardware::write(json);
-
-	//write attributes
-	json["status"] = (double)status_;
-	json["node_id"] = (double)node_id_;
-	json["position"] = (double)position_;
-	json["current"] = (double)current_;
-	json["velocity"] = (double)velocity_;
-	ptr_actuator_->write(json); //TODO find a way to avoid infinite serialization loop
-	//m_pCommunicationLayer->write(json);
-	//m_pBattery->write(json);
 }

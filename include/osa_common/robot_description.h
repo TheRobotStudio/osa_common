@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, The Robot Studio
+ * Copyright (c) 2018, The Robot Studio
  *  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,69 +25,61 @@
  */
 
 /**
- * @file project.h
- * @author Cyril Jourdan
- * @date Dec 8, 2016
- * @version 0.0.1
- * @brief Header file for class Project
- *
- * Contact: cyril.jourdan@therobotstudio.com
- * Created on : Dec 8, 2016
+ * @file robot_description.h
+ * @author Cyril Jourdan <cyril.jourdan@therobotstudio.com>
+ * @date Modified on Apr 11, 2018
+ * @date Created on Apr 11, 2018
+ * @version 0.1.1
+ * @brief Header file for class RobotDescription
  */
 
-#ifndef OSA_GUI_COMMON_COMMON_PROJECT_H
-#define OSA_GUI_COMMON_COMMON_PROJECT_H
+#ifndef OSA_COMMON_ROBOT_DESCRIPTION_H
+#define OSA_COMMON_ROBOT_DESCRIPTION_H
 
-#include <QFile>
-#include <QJsonObject>
-#include "robot.h"
-#include "../sequencer/posture.h"
-#include "../sequencer/sequence.h"
+#include <ros/ros.h>
+#include <string>
+#include "controller.h"
 
 namespace osa_common
 {
 
 /**
- * @brief This class defines a project.
+ * @brief Class that read robot description on the parameter server.
  */
-class Project
+class RobotDescription
 {
 public:
+
 	/**
 	 * @brief Constructor.
 	 */
-	Project();
+	RobotDescription(ros::NodeHandle *nh);
 
 	/**
 	 * @brief Destructor.
 	 */
-	~Project();
+	~RobotDescription();
 
-	//setters
-	int setFile(QFile* ptr_file);
-	int setRobot(Robot* ptr_robot);
-	int setSequence(sequencer::Sequence* ptr_sequence);
-	int addPosture(sequencer::Posture* ptr_posture);
+	//getter
+	std::string getRobotNamespace() const { return robot_namespace_; };
+	std::string getRobotName() const { return robot_name_; };
+	int getRobotDof() const { return robot_dof_; };
+	std::string getRobotCANDevice() const { return robot_can_device_; };
+	int getRobotHeartbeat() const { return robot_heartbeat_; };
+	std::vector<Controller*> getControllerList() const { return controller_list_; };
 
-	//getters
-	QFile* getPFile() const { return ptr_file_; };
-	Robot* getPRobot() const { return ptr_robot_; };
-	sequencer::Sequence* getPSequence() const { return ptr_sequence_; };
-	QList<sequencer::Posture*> getLpPosture() const { return posture_list_; };
+private:
+	const static int data_length = 8;
 
-	/** @brief Read method for JSON serialization. */
-	void read(const QJsonObject &json);
-
-	/** @brief Write method for JSON serialization. */
-	void write(QJsonObject &json) const;
-
-protected:
-	QFile* ptr_file_;
-	Robot* ptr_robot_;
-	sequencer::Sequence* ptr_sequence_; //TODO have a QList of Sequences
-	QList<sequencer::Posture*> posture_list_;
+	ros::NodeHandle* nh_;
+	std::string robot_namespace_;
+	std::string robot_name_;
+	int robot_dof_; /**< Size of epos_controller_list_ */
+	std::string robot_can_device_;
+	int robot_heartbeat_;
+	std::vector<Controller*> controller_list_;
 };
 
-} // namespace osa_common
+} // osa_common
 
-#endif // OSA_GUI_COMMON_COMMON_PROJECT_H
+#endif // OSA_COMMON_ROBOT_DESCRIPTION_H
