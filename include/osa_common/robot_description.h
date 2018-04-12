@@ -60,6 +60,10 @@ public:
 	 */
 	~RobotDescription();
 
+	void grabRobotNamespaceParameterFromServer();
+	void grabRobotParametersFromServer();
+	void grabDOFParametersFromServer();
+
 	//getter
 	std::string getRobotNamespace() const { return robot_namespace_; };
 	std::string getRobotName() const { return robot_name_; };
@@ -69,8 +73,6 @@ public:
 	std::vector<Controller*> getControllerList() const { return controller_list_; };
 
 private:
-	const static int data_length = 8;
-
 	ros::NodeHandle* nh_;
 	std::string robot_namespace_;
 	std::string robot_name_;
