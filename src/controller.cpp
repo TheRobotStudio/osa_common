@@ -57,6 +57,7 @@ value_(value)
 		if(!degree_of_freedom_type.compare("TENDON")) degree_of_freedom_type_ = TENDON;
 		else if(!degree_of_freedom_type.compare("WHEEL")) degree_of_freedom_type_ = WHEEL;
 		else if(!degree_of_freedom_type.compare("CLASSICAL")) degree_of_freedom_type_ = CLASSICAL;
+		else if(!degree_of_freedom_type.compare("SEA")) degree_of_freedom_type_ = SEA;
 
 		//node_id_
 		if((node_id >=0) && (node_id<=255)) node_id_ = node_id; //check that the value is a uint8_t
@@ -77,6 +78,8 @@ value_(value)
 		else if(!motor_type.compare("RE30")) motor_type_ = MotorType(RE30);
 		else if(!motor_type.compare("ECI40")) motor_type_ = MotorType(ECI40);
 		else if(!motor_type.compare("ECI52")) motor_type_ = MotorType(ECI52);
+		else if(!motor_type.compare("EC32F_12")) motor_type_ = MotorType(EC32F_12);
+		else if(!motor_type.compare("EC32F_24")) motor_type_ = MotorType(EC32F_24);
 		else if(!motor_type.compare("EC90")) motor_type_ = MotorType(EC90);
 
 		//mode_

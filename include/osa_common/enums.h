@@ -51,7 +51,8 @@ enum DegreeOfFreedomType
 {
     TENDON = 0,
     WHEEL = 1,
-    CLASSICAL = 2
+    CLASSICAL = 2,
+	SEA = 3
 }; 
 
 /**
@@ -70,7 +71,9 @@ enum MotorType
     RE30 = 7,
     ECI40 = 8,
     ECI52 = 9,
-    EC90 = 10
+	EC32F_12 = 10,
+	EC32F_24 = 11,
+    EC90 = 12
 };
 
 /**
