@@ -70,6 +70,7 @@ value_(value)
 		//motor_type_
 		if(!motor_type.compare("NONE")) motor_type_ = MotorType(NONE);
 		else if(!motor_type.compare("DCX10")) motor_type_ = MotorType(DCX10);
+		else if(!motor_type.compare("DCX12")) motor_type_ = MotorType(DCX12);
 		else if(!motor_type.compare("DCX14")) motor_type_ = MotorType(DCX14);
 		else if(!motor_type.compare("DCX16")) motor_type_ = MotorType(DCX16);
 		else if(!motor_type.compare("DCX22")) motor_type_ = MotorType(DCX22);

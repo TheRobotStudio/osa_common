@@ -63,17 +63,18 @@ enum MotorType
 {
     NONE = 0,
     DCX10 = 1,
-    DCX14 = 2,
-    DCX16 = 3,
-    DCX22 = 4,
-    DCX32 = 5,
-    RE13 = 6,
-    RE30 = 7,
-    ECI40 = 8,
-    ECI52 = 9,
-	EC32F_12 = 10,
-	EC32F_24 = 11,
-    EC90 = 12
+	DCX12 = 2,
+    DCX14 = 3,
+    DCX16 = 4,
+    DCX22 = 5,
+    DCX32 = 6,
+    RE13 = 7,
+    RE30 = 8,
+    ECI40 = 9,
+    ECI52 = 10,
+	EC32F_12 = 11,
+	EC32F_24 = 12,
+    EC90 = 13
 };
 
 /**
