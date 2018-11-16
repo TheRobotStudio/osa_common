@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, The Robot Studio
+ * Copyright (c) 2018, The Robot Studio
  *  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -74,14 +74,22 @@ value_(value)
 		else if(!motor_type.compare("DCX14")) motor_type_ = MotorType(DCX14);
 		else if(!motor_type.compare("DCX16")) motor_type_ = MotorType(DCX16);
 		else if(!motor_type.compare("DCX22")) motor_type_ = MotorType(DCX22);
+		else if(!motor_type.compare("DCX26")) motor_type_ = MotorType(DCX26);
 		else if(!motor_type.compare("DCX32")) motor_type_ = MotorType(DCX32);
+		else if(!motor_type.compare("RE10")) motor_type_ = MotorType(RE10);
 		else if(!motor_type.compare("RE13")) motor_type_ = MotorType(RE13);
+		else if(!motor_type.compare("RE25")) motor_type_ = MotorType(RE25);
 		else if(!motor_type.compare("RE30")) motor_type_ = MotorType(RE30);
+		else if(!motor_type.compare("ECX10")) motor_type_ = MotorType(ECX10);
+		else if(!motor_type.compare("ECI30")) motor_type_ = MotorType(ECI30);
 		else if(!motor_type.compare("ECI40")) motor_type_ = MotorType(ECI40);
 		else if(!motor_type.compare("ECI52")) motor_type_ = MotorType(ECI52);
+		else if(!motor_type.compare("EC4POLE")) motor_type_ = MotorType(EC4POLE);
+		else if(!motor_type.compare("EC9_2F")) motor_type_ = MotorType(EC9_2F);
 		else if(!motor_type.compare("EC32F_12")) motor_type_ = MotorType(EC32F_12);
 		else if(!motor_type.compare("EC32F_24")) motor_type_ = MotorType(EC32F_24);
-		else if(!motor_type.compare("EC90")) motor_type_ = MotorType(EC90);
+		else if(!motor_type.compare("EC90F")) motor_type_ = MotorType(EC90F);
+		else if(!motor_type.compare("EC90FL")) motor_type_ = MotorType(EC90FL);
 
 		//mode_
 		if(!mode.compare("INTERPOLATED_POSITION_MODE")) mode_ = ActivatedModeOfOperation(INTERPOLATED_POSITION_MODE);

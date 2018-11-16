@@ -61,20 +61,28 @@ enum DegreeOfFreedomType
  */
 enum MotorType
 {
-    NONE = 0,
-    DCX10 = 1,
-	DCX12 = 2,
-    DCX14 = 3,
-    DCX16 = 4,
-    DCX22 = 5,
-    DCX32 = 6,
-    RE13 = 7,
-    RE30 = 8,
-    ECI40 = 9,
-    ECI52 = 10,
-	EC32F_12 = 11,
-	EC32F_24 = 12,
-    EC90 = 13
+    NONE =0 ,
+    DCX10,
+	DCX12,
+    DCX14,
+    DCX16,
+    DCX22,
+	DCX26,
+    DCX32,
+	RE10,
+    RE13,
+	RE25,
+    RE30,
+	ECX10,
+	ECI30,
+    ECI40,
+    ECI52,
+	EC4POLE,
+	EC9_2F, //EC9.2Fl
+	EC32F_12, //12V
+	EC32F_24, //24V
+    EC90F,
+	EC90FL //frameless
 };
 
 /**
