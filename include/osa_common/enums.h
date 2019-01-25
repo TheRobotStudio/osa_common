@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, The Robot Studio
+ * Copyright (c) 2019, The Robot Studio
  *  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,7 +27,7 @@
  /**
  * @file enums.h
  * @author Cyril Jourdan <cyril.jourdan@therobotstudio.com>
- * @date Modified on Apr 11, 2018
+ * @date Modified on Jan 25, 2019
  * @date Created on Mar 11, 2015
  * @version 0.1.1
  * @brief header file for enums definitions
@@ -61,28 +61,28 @@ enum DegreeOfFreedomType
  */
 enum MotorType
 {
-    NONE =0 ,
+    NONE =0,
     DCX10,
-	DCX12,
+    DCX12,
     DCX14,
     DCX16,
     DCX22,
-	DCX26,
+    DCX26,
     DCX32,
-	RE10,
+    RE10,
     RE13,
-	RE25,
+    RE25,
     RE30,
-	ECX10,
-	ECI30,
+    ECX10,
+    ECI30,
     ECI40,
     ECI52,
-	EC4POLE,
-	EC9_2F, //EC9.2Fl
-	EC32F_12, //12V
-	EC32F_24, //24V
+    EC4POLE,
+    EC9_2F, //EC9.2Fl
+    EC32F_12, //12V
+    EC32F_24, //24V
     EC90F,
-	EC90FL //frameless
+    EC90FL //frameless
 };
 
 /**
