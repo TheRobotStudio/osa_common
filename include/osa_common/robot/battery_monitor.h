@@ -35,7 +35,7 @@
  * @version 0.0.1
  * @brief Header file for class BatteryMonitor
  *
- * Contact: cyril.jourdan@therobotstudio.com
+ * Contact: contact@therobotstudio.com
  * Created on : Dec 13, 2016
  */
 

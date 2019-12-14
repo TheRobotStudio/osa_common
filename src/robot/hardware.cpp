@@ -35,7 +35,7 @@
  * @version 0.1.0
  * @brief Implementation file for class Hardware
  *
- * Contact: cyril.jourdan@therobotstudio.com
+ * Contact: contact@therobotstudio.com
  * Created on : Dec 12, 2016
  */
 

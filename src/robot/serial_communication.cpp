@@ -35,7 +35,7 @@
  * @version 0.0.1
  * @brief Implementation file for class SerialCommunication
  *
- * Contact: cyril.jourdan@therobotstudio.com
+ * Contact: contact@therobotstudio.com
  * Created on : Dec 14, 2016
  */
 

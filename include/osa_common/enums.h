@@ -30,7 +30,7 @@
  
  /**
  * @file enums.h
- * @author Cyril Jourdan <cyril.jourdan@therobotstudio.com>
+ * @author Cyril Jourdan <contact@therobotstudio.com>
  * @date Modified on Jan 25, 2019
  * @date Created on Mar 11, 2015
  * @version 0.1.1
